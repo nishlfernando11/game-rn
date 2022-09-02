@@ -1,7 +1,8 @@
 import { StyleSheet, ImageBackground, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import {useFonts} from'expo-font';
-import AppLoading from 'expo-app-loading'; 
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
+import { StatusBar } from 'expo-status-bar';
 
 import StartGameScreen from './screens/StartGameScreen';
 import { useState } from 'react';
@@ -18,9 +19,9 @@ export default function App() {
     'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
     'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
   });
-  
-  if(!fontsLoaded) {
-    return <AppLoading/>
+
+  if (!fontsLoaded) {
+    return <AppLoading />
   }
   const pickedNumHandler = (num) => {
     setUserNum(num);
@@ -40,24 +41,27 @@ export default function App() {
   let screen = <StartGameScreen onPickNum={pickedNumHandler} style={styles.container} />
 
   if (userNum) {
-    screen = <GameScreen userNum={userNum} onGameOver={gameOverHandler}/>
+    screen = <GameScreen userNum={userNum} onGameOver={gameOverHandler} />
   }
-  if(gameOver && userNum) {
-    screen = <GameOverScreen userNum={userNum} rounds={guessRounds} onStartNewGame={startNewGameHandler}/>
+  if (gameOver && userNum) {
+    screen = <GameOverScreen userNum={userNum} rounds={guessRounds} onStartNewGame={startNewGameHandler} />
   }
 
   return (
-    <LinearGradient colors={[Colors.primary700, Colors.accent500]} style={styles.rootScreen}>
-      <ImageBackground
-        source={require('./assets/images/background.png')}
-        resizeMode="cover" style={styles.rootScreen}
-        imageStyle={styles.backgroundImage}>
-        <SafeAreaView style={styles.rootScreen}>
-          {/* Adjust space to keep content out of phone screen notch  */}
-          {screen}
-        </SafeAreaView>
-      </ImageBackground>
-    </LinearGradient>
+    <>
+      <StatusBar style="light" />
+      <LinearGradient colors={[Colors.primary700, Colors.accent500]} style={styles.rootScreen}>
+        <ImageBackground
+          source={require('./assets/images/background.png')}
+          resizeMode="cover" style={styles.rootScreen}
+          imageStyle={styles.backgroundImage}>
+          <SafeAreaView style={styles.rootScreen}>
+            {/* Adjust space to keep content out of phone screen notch  */}
+            {screen}
+          </SafeAreaView>
+        </ImageBackground>
+      </LinearGradient>
+    </>
   );
 }
 
