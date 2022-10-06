@@ -1,4 +1,4 @@
-# meal-app-rn
+# game-rn
 A simple React native game app.
 
 # Start App
