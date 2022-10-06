@@ -1,5 +1,5 @@
-# game-rn
-React-native, simple game
+# meal-app-rn
+A simple React native game app.
 
-#Start
-npm start
+# Start App
+Run npm start on the terminal
